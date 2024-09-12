@@ -14,10 +14,8 @@ years = ['2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021',
 regions = ['China', 'Europe', 'USA', 'Rest of the world']
 powertrains = ['BEV', 'PHEV']
 
-# Initialize a dictionary to store subcategory data for each region and powertrain
 region_powertrain_data = {region: {pt: {year: 0 for year in years} for pt in powertrains} for region in regions}
 
-# Filter and collect data for each region and powertrain
 for region in regions:
     for powertrain in powertrains:
         filtered_data = data[(data['region'] == region) & 
@@ -34,15 +32,12 @@ for region in regions:
             if year in region_powertrain_data[region][powertrain]:
                 region_powertrain_data[region][powertrain][year] = row['value']
 
-# Prepare the chart data for each region and powertrain
 chart_data = []
 for region in regions:
     for powertrain in powertrains:
         values = [region_powertrain_data[region][powertrain][year] for year in years]
         chart_data.append({'subCategory': f'{region} {powertrain}', 'values': values})
 
-# Debug: Print chart data to ensure consistency
-print("Chart Data:", chart_data)
 
 # Create a chart
 chart = lc.BarChart(
